@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Andrej Markanjević">       <!-- some meta elements -->
+    <title>{{ title_text }}</title>
+
+    <link rel="stylesheet" href="static/css/bootstrap.css">     <!-- loading Bootstrap css into this html file -->
+    <link rel="stylesheet" href="static/css/web-page.css"><!-- loading my css into this html file -->
+
+    <!-- with this I can set what background I want on each page -->
+    <style>
+    .background-image {
+      background-image: url('{{ background_image_url }}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 500px;
+      position: relative;
+      }
+    </style>
+</head>
+
+<body>
+    {% block pageUpperBody %}       <!-- main body on all pages, lots of components from Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">        <!-- creates a navbar on the top of the page -->
+      <a class="navbar-brand" style="margin-left: 10px;" href="/">AMShop</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">     <!-- a div element that holds my buttons -->
+        <ul class="navbar-nav ml-auto" style="margin-left: 20px;">
+
+          <!-- a dropdown menu on the first button,followed by 2 other links  -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="http://127.0.0.1:5000/shirts">Shirts</a></li>
+              <li><a class="dropdown-item" href="http://127.0.0.1:5000/jeans">Jeans</a></li>
+              <li><a class="dropdown-item" href="http://127.0.0.1:5000/trousers">Trousers</a></li><li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="http://127.0.0.1:5000/accessories">Accessories</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://127.0.0.1:5000/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://127.0.0.1:5000/cartItems">Cart</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="background-image">      <!-- the upper background of the text -->
+      <div class="text-over-image">
+        <h1 id="my-heading">{{ heading_text }}</h1>     <!-- the main text on the page,set manually on each page -->
+        <p>{{ paragraph_text }}</p>     <!-- the second on the page,set manually on each page -->
+      </div>
+    </div>
+
+    {% endblock %}
+
+    {% block pageLowerBody %}       <!-- lower part of the body, only pages with clothes listed extend this part -->
+    <div class="product-list">
+      {% for obj in objects %}      <!-- using for loop that Jinja2 provided looping through objects sent by server -->
+        <div class="product-card">
+          <div class="product-image">
+            <img src= {{ obj.img }}>        <!-- getting the attributes from the objects -->
+          </div>
+          <div class="product-info">
+            <h2 class="product-name">{{ obj.name }}</h2>        <!-- getting the attributes from the objects -->
+            <p class="product-price">{{ obj.price }}€</p>       <!-- getting the attributes from the objects -->
+            <button onclick="buyThis({{ obj.id }})" class="product-button">Add to cart</button>     <!-- this button runs the JavaScript code below and add items to the cart -->
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% endblock %}
+
+    <!-- loading the Bootstrap JS script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <!-- loading my script, this part through 'POST' method sends the data to the server -->
+    <script>
+    function buyThis(itemId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/buyThis');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            console.log(xhr.responseText);
+          }
+        };
+        xhr.send(JSON.stringify({itemId: itemId}));
+      }
+    </script>
+</body>
+</html>

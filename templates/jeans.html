@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "page-temp.html" %}      <!-- inherits elements from template page because of Jinja2 -->
+{% set background_image_url = "static/imgs/jeans_bg.jpg" %}      <!-- Sets the background image on each page manually -->
+{% set title_text = "Jeans" %}   <!-- Sets the title on each page manually -->
+{% set heading_text = "Jeans" %}     <!-- Sets the main heading on each page manually -->
+{% set paragraph_text = "Choose what style suits you the best!" %}    <!-- Sets the paragraph text on each page manually -->
+
+    {% block pageUpperBody %}
+        {{ super() }}        <!-- here I'm bringing the elements from page-temp.html filling them up with the setters above -->
+    {% endblock %}
+
+    {% block pageLowerBody %}
+        {{ super() }}
+    {% endblock %}
+
+</html>

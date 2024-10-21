@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "page-temp.html" %}      <!-- inherits elements from template page because of Jinja2 -->
+{% set background_image_url = "static/imgs/comps_science.jpg" %}      <!-- Sets the background image on each page manually -->
+{% set title_text = "Checkout" %}   <!-- Sets the title on each page manually -->
+{% set heading_text = "Congratulations!" %}     <!-- Sets the main heading on each page manually -->
+{% set paragraph_text = "You've finished your shopping!" %}     <!-- Sets the paragraph text on each page manually -->
+
+    {% block pageUpperBody %}
+        {{ super() }}        <!-- here I'm bringing the elements from page-temp.html filling them up with the setters above -->
+    {% endblock %}
+
+    {% block pageLowerBody %}       <!-- here instead of bringing the elements I'm editing this part here -->
+    <div class="text-holder">       <!-- simple text container -->
+        <div class="about-div">
+            <h1>Thank you for shopping with us!</h1>
+            <p>
+                We hope you come back soon!
+            </p>
+        </div>
+    </div>
+    <div class="gotofrontpagebtn">      <!-- a button for navigation -->
+        <button class="btn btn-lg btn-primary" onclick="window.location.href='/'">Go to the Home page</button>
+    </div>
+    {% endblock %}
+</html>

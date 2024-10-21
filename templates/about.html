@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "page-temp.html" %}      <!-- inherits elements from template page because of Jinja2 -->
+{% set background_image_url = "static/imgs/comps_science.jpg" %}      <!-- Sets the background image on each page manually -->
+{% set title_text = "About AMShop" %}   <!-- Sets the title on each page manually -->
+{% set heading_text = "About AMShop" %}     <!-- Sets the main heading on each page manually -->
+{% set paragraph_text = "A little about this website" %}    <!-- Sets the paragraph text on each page manually -->
+
+    {% block pageUpperBody %}
+        {{ super() }}        <!-- here I'm bringing the elements from page-temp.html filling them up with the setters above -->
+    {% endblock %}
+
+    {% block pageLowerBody %}       <!-- here instead of bringing the elements I'm editing this part here -->
+    <div class="text-holder">
+        <div class="about-div">
+            <h1>About AMShop as a website</h1>
+            <p>
+                Hello, this website was made for a project that uses Flask and few other tools that we were taught about
+                in class "Programiranje za web". The page was made by me, Andrej Markanjević.
+            </p>
+        </div>
+    </div>
+    {% endblock %}
+
+</html>

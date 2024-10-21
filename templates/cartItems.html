@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "page-temp.html" %}      <!-- inherits elements from template page because of Jinja2 -->
+{% set background_image_url = "static/imgs/checkout.jpg" %}      <!-- Sets the background image on each page manually -->
+{% set title_text = "CheckoutPage" %}   <!-- Sets the title on each page manually -->
+{% set heading_text = "Checkout Page" %}     <!-- Sets the main heading on each page manually -->
+{% set paragraph_text = "Is there anything else you'd like to buy?" %}    <!-- Sets the paragraph text on each page manually -->
+
+    {% block pageUpperBody %}
+        {{ super() }}        <!-- here I'm bringing the elements from page-temp.html filling them up with the setters above -->
+    {% endblock %}
+
+    {% block pageLowerBody %}       <!-- here instead of bringing the elements I'm editing this part here -->
+      <div class="product-list">
+      {% for obj in objects %}      <!-- using for loop that Jinja2 provided looping through objects sent by server -->
+        <div class="product-card">      <!-- holds the cards that pop up in the shop -->
+          <div class="product-image">
+            <img src= {{ obj.img }}>        <!-- this is the part where those setters above set the images or text -->
+          </div>
+          <div class="product-info">
+            <h2 class="product-name">{{ obj.name }}</h2>
+            <p class="product-price">{{ obj.price }}€</p>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+
+    <div class="gotofrontpagebtn">       <!-- a button for navigation -->
+        <button class="btn btn-lg btn-primary" onclick="window.location.href='/checkout'">Checkout</button>
+    </div>
+
+    {% endblock %}
+
+
+
+</html>

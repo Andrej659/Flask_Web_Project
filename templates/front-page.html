@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "page-temp.html" %}      <!-- inherits elements from template page because of Jinja2 -->
+{% set background_image_url = "static/imgs/man_fashion.jpg" %}      <!-- Sets the background image on each page manually -->
+{% set title_text = "AMShop Frontpage" %}   <!-- Sets the title on each page manually -->
+{% set heading_text = "Welcome AMShop" %}     <!-- Sets the main heading on each page manually -->
+{% set paragraph_text = "An online webshop where you can find everything you need!" %}    <!-- Sets the paragraph text on each page manually -->
+
+    {% block pageUpperBody %}
+        {{ super() }}        <!-- here I'm bringing the elements from page-temp.html filling them up with the setters above -->
+    {% endblock %}
+
+    {% block pageLowerBody %}       <!-- here instead of bringing the elements I'm editing this part here -->
+    <div id="image-container">      <!-- contains the image links that navigate through the shop -->
+      <div class="image">
+        <a class="imageAnchor" href="http://127.0.0.1:5000/clothes">
+          <img class="button-image" src="static/imgs/clothing-link.jpg">
+          <div class="imageText">Clothing</div>
+        </a>
+      </div>
+      <div class="image">
+        <a class="imageAnchor" href="http://127.0.0.1:5000/jeansNtrousers">
+          <img class="button-image" src="static/imgs/jeans.jpg">
+          <div class="imageText">Jeans N Trousers</div>
+        </a>
+      </div>
+      <div class="image">
+        <a class="imageAnchor" href="http://127.0.0.1:5000/accessories">
+          <img class="button-image" src="static/imgs/accessories-link.jpg">
+          <div class="imageText">Accessories</div>
+        </a>
+      </div>
+    </div>
+    {% endblock %}
+
+</html>
